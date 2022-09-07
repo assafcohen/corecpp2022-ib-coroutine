@@ -1,13 +1,10 @@
 
-#include <fmt/core.h>
-
 #include "FileSender.hpp"
 
 namespace corecpp2022
 {
-using boost::system::error_code;
+using std::error_code;
 namespace fs = std::filesystem;
-namespace asio = boost::asio;
 using fs::path;
 using std::size_t;
 
@@ -25,15 +22,14 @@ void FileSender::sendFile(const path& filePath)
   const auto fileSize = static_cast<size_t>(fs::file_size(filePath));
   auto buff = std::make_unique<std::byte[]>(buffSize);
   asio::stream_file file(mStream.get_executor(),
-                      filePath.string(),
-                      asio::file_base::read_only);
+                         filePath.string(),
+                         asio::file_base::read_only);
   size_t totalreadBytes = 0, totalsentBytes = 0, readBytes = 0;
   while (totalreadBytes < fileSize)
   {
     totalreadBytes += readBytes =
         file.read_some(asio::buffer(buff.get(), buffSize));
-    totalsentBytes +=
-        asio::write(mStream, asio::buffer(buff.get(), readBytes));   
+    totalsentBytes += asio::write(mStream, asio::buffer(buff.get(), readBytes));
   }
 }
 } // namespace corecpp2022

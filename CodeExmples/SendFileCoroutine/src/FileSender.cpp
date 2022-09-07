@@ -1,21 +1,22 @@
-#include <fmt/core.h>
 
 #include "FileSender.hpp"
 
 namespace corecpp2022
 {
-using boost::system::error_code;
+using std::error_code;
 namespace fs = std::filesystem;
-namespace asio = boost::asio;
+
 using fs::path;
 using std::size_t;
 
 static constexpr size_t buffSize = 1024 * 64;
 
 asio::awaitable<error_code> FileSender::sendFileSize(const path& filePath)
-{  
+{
   const auto fileSize = static_cast<size_t>(fs::file_size(filePath));
-  co_await asio::async_write(mStream,asio::buffer(&fileSize, sizeof(fileSize)),asio::use_awaitable);
+  co_await asio::async_write(mStream,
+                             asio::buffer(&fileSize, sizeof(fileSize)),
+                             asio::use_awaitable);
   co_return co_await sendFile(filePath);
 }
 

@@ -6,14 +6,14 @@ list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
 include(conan.cmake)
 
-conan_cmake_configure(REQUIRES boost/1.79.0 fmt/9.0.0
+conan_cmake_configure(REQUIRES asio/1.24.0
         GENERATORS cmake_find_package)
 
 conan_cmake_autodetect(settings)
 
 
-find_package(fmt)
-find_package(boost)
+
+find_package(asio)
 
 add_subdirectory(SendFileCoroutine)
 add_subdirectory(SendFileCallback)

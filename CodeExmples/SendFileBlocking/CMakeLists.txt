@@ -7,4 +7,4 @@ project(SendfileBlocking
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(SendfileBlocking src/main.cpp src/FileSender.hpp src/FileSender.cpp)
-target_link_libraries(SendfileBlocking fmt::fmt Boost::Boost)
+target_link_libraries(SendfileBlocking asio::asio)

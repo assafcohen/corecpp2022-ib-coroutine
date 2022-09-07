@@ -7,4 +7,4 @@ project(SendfileCoroutine
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(SendfileCoroutine src/main.cpp src/FileSender.hpp src/FileSender.cpp)
-target_link_libraries(SendfileCoroutine fmt::fmt Boost::Boost)
+target_link_libraries(SendfileCoroutine asio::asio)
